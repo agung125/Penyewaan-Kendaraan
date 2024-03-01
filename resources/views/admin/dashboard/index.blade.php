@@ -7,69 +7,70 @@
             <h1>Dashboard</h1>
         </div>
 
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="fa fa-book-open text-white fa-2x"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>BERITA</h4>
-                  </div>
-                  <div class="card-body">
-                    {{ App\Models\Post::count() ?? '0' }}
-                  </div>
-                </div>
-              </div>
+        <div class="card text-white">
+            <div class="card-body">
+                <canvas id="bar-chart" width="800" height="450"></canvas>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
-                  <i class="fa fa-bell text-white fa-2x"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>AGENDA</h4>
-                  </div>
-                  <div class="card-body">
-                    {{ App\Models\Event::count() ?? '0' }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
-                  <i class="fa fa-tags text-white fa-2x"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>TAGS</h4>
-                  </div>
-                  <div class="card-body">
-                    {{ App\Models\Tag::count() ?? '0' }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-success">
-                  <i class="fa fa-users text-white fa-2x"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="card-header">
-                    <h4>USERS</h4>
-                  </div>
-                  <div class="card-body">
-                    {{ App\Models\User::count() ?? '0' }}
-                  </div>
-                </div>
-              </div>
-            </div>                  
-          </div>
-
+        </div>
     </section>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var kendaraan = @json($kendaraan);
+    var datasets = [];
+
+    kendaraan.forEach(k => {
+        var label = k.komentar;
+        var data = [k.selisih_hari];
+        var backgroundColor = (k.selisih_hari <= 2) ? "#ff0000" : "#3e95cd";
+
+        datasets.push({
+            label: label,
+            backgroundColor: backgroundColor,
+            borderWidth: 1,
+            data: data
+        });
+    });
+
+    var chartData = {
+        labels: ["Jadwal (Service)"],
+        datasets: datasets
+    };
+
+    var options = {
+        legend: { display: true },
+        title: {
+            display: true,
+            text: 'Kondisi Kendaraan'
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    fontColor: '#ffffff'
+                },
+                gridLines: {
+                    color: '#ffffff'
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: '#ffffff'
+                },
+                gridLines: {
+                    color: '#ffffff'
+                }
+            }]
+        }
+    };
+
+    var ctx = document.getElementById("bar-chart").getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: options
+    });
+</script>
+
+
+
 @endsection

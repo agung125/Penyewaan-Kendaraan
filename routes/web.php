@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,22 @@ Route::prefix('admin')->group(function () {
         //dashboard
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard.index');
 
+        //export
+        Route::get('/export/{id}', [App\Http\Controllers\Admin\PemesananController::class, 'exportPemesanan'])->name('admin.pemesanan.export');
+
+
+        //lihat pemesanan
+        Route::get('/show/{id}', [App\Http\Controllers\Admin\PemesananController::class, 'show'])->name('admin.pemesanan.show');
+
+        //aprove reject supir
+        Route::post('/supir/approve/{id}', [App\Http\Controllers\Admin\SupirController::class, 'approvePemesanan'])->name('admin.aprove.supir');
+        Route::post('/supir/reject/{id}', [App\Http\Controllers\Admin\SupirController::class, 'rejectPemesanan'])->name('admin.reject.supir');
+
+        //aprove reject pengelola
+        Route::post('/pengelola/approve/{id}', [App\Http\Controllers\Admin\PengelolaController::class, 'approvePemesanan'])->name('admin.aprove.pengelola');
+        Route::post('/pengelola/reject/{id}', [App\Http\Controllers\Admin\PengelolaController::class, 'rejectPemesanan'])->name('admin.reject.pengelola');
+
+
         //permissions
         Route::resource('/permission', App\Http\Controllers\Admin\PermissionController::class, ['except' => ['show', 'create', 'edit', 'update', 'delete'] ,'as' => 'admin']);
 
@@ -33,26 +50,16 @@ Route::prefix('admin')->group(function () {
         //users
         Route::resource('/user', App\Http\Controllers\Admin\UserController::class, ['except' => ['show'] ,'as' => 'admin']);
 
-        //tags
-        Route::resource('/tag', App\Http\Controllers\Admin\TagController::class, ['except' => 'show' ,'as' => 'admin']);
+        //pemesanan
+        Route::resource('/pemesanan', App\Http\Controllers\Admin\PemesananController::class, ['except' => 'show' ,'as' => 'admin']);
+        //kendaraan
+        Route::resource('/kendaraan', App\Http\Controllers\Admin\KendaraanController::class, ['except' => 'show' ,'as' => 'admin']);
+        //supir
+        Route::resource('/supir', App\Http\Controllers\Admin\SupirController::class, ['except' => 'show' ,'as' => 'admin']);
+        //pengelola
+        Route::resource('/pengelola', App\Http\Controllers\Admin\PengelolaController::class, ['except' => 'show' ,'as' => 'admin']);
 
-        //categories
-        Route::resource('/category', App\Http\Controllers\Admin\CategoryController::class, ['except' => 'show' ,'as' => 'admin']);
 
-        //posts
-        Route::resource('/post', App\Http\Controllers\Admin\PostController::class, ['except' => 'show' ,'as' => 'admin']);
-
-        //event
-        Route::resource('/event', App\Http\Controllers\Admin\EventController::class, ['except' => 'show' ,'as' => 'admin']);
-
-        //photo
-        Route::resource('/photo', App\Http\Controllers\Admin\PhotoController::class, ['except' => ['show', 'create', 'edit', 'update'] ,'as' => 'admin']);
-        
-        //video
-        Route::resource('/video', App\Http\Controllers\Admin\VideoController::class, ['except' => 'show' ,'as' => 'admin']);
-    
-        //slider
-        Route::resource('/slider', App\Http\Controllers\Admin\SliderController::class, ['except' => ['show', 'create', 'edit', 'update'] ,'as' => 'admin']);
 
     });
 

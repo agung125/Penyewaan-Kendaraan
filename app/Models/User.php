@@ -19,10 +19,22 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
     ];
+
+        public function supir()
+    {
+        return $this->hasOne(Supir::class, 'user_id');
+    }
+
+    public function pengelola()
+    {
+        return $this->hasOne(pengelola::class, 'user_id');
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

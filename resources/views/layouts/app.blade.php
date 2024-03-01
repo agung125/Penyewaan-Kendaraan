@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard &mdash; SMK INDONESIA</title>
+    <title>Dashboard &mdash; SEWA KENDARAAN</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/school.svg') }}" type="image/x-icon">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -59,73 +59,53 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="index.html">SMK INDONESIA</a>
+                        <a href="index.html">SEWA KENDARAAN</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">SMK</a>
+                        <a href="index.html">SK</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">MAIN MENU</li>
                         <li class="{{ setActive('admin/dashboard') }}"><a class="nav-link"
                                 href="{{ route('admin.dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>
                                 <span>Dashboard</span></a></li>
-                        @can('posts.index')
-                        <li class="{{ setActive('admin/post') }}"><a class="nav-link"
-                                href="{{ route('admin.post.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Berita</span></a></li>
-                        @endcan
 
-                        @can('tags.index')
-                        <li class="{{ setActive('admin/tag') }}"><a class="nav-link"
-                                href="{{ route('admin.tag.index') }}"><i class="fas fa-tags"></i> <span>Tags</span></a>
-                        </li>
-                        @endcan
+                                @can('pemesanans.index')
+                                <li class="{{ setActive('admin/pemesanan') }}"><a class="nav-link"
+                                        href="{{ route('admin.pemesanan.index') }}"><i class="fas fa-book-open"></i> <span>Pemesanan</span></a>
+                                </li>
+                                @endcan
 
-                        @can('categories.index')
-                        <li class="{{ setActive('admin/category') }}"><a class="nav-link"
-                                href="{{ route('admin.category.index') }}"><i class="fas fa-folder"></i>
-                                <span>Kategori</span></a></li>
-                        @endcan
+                                @can('kendaraans.index')
+                                <li class="{{ setActive('admin/kendaraan') }}"><a class="nav-link"
+                                        href="{{ route('admin.kendaraan.index') }}"><i class="fas fa-truck-moving"></i><span>Kendaraan</span></a>
+                                </li>
+                                @endcan
 
-                        @can('events.index')
-                        <li class="{{ setActive('admin/event') }}"><a class="nav-link"
-                                href="{{ route('admin.event.index') }}"><i class="fas fa-bell"></i>
-                                <span>Agenda</span></a></li>
-                        @endcan
+                                @can('supirs.index')
+                                <li class="{{ setActive('admin/supir') }}"><a class="nav-link"
+                                        href="{{ route('admin.supir.index') }}"><i class="fas fa-user-circle"></i><span>Data Supir</span></a>
+                                </li>
+                                @endcan
 
-                        @if(auth()->user()->can('photos.index') || auth()->user()->can('videos.index'))
-                        <li class="menu-header">GALERI</li>
-                        @endif
-                        
-                        @can('photos.index')
-                        <li class="{{ setActive('admin/photo') }}"><a class="nav-link"
-                                href="{{ route('admin.photo.index') }}"><i class="fas fa-image"></i>
-                                <span>Foto</span></a></li>
-                        @endcan
+                                @can('pengelolas.index')
+                                <li class="{{ setActive('admin/pengelola') }}"><a class="nav-link"
+                                        href="{{ route('admin.pengelola.index') }}"><i class="fas fa-user-tie"></i><span>Data Kepala Cabang</span></a>
+                                </li>
+                                @endcan
 
-                        @can('videos.index')
-                        <li class="{{ setActive('admin/video') }}"><a class="nav-link"
-                                href="{{ route('admin.video.index') }}"><i class="fas fa-video"></i>
-                                <span>Video</span></a></li>
-                        @endcan
+
 
                         @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
-                        <li class="menu-header">PENGATURAN</li>
+                        <li class="menu-header">PENGATURAN TAMBAHAN</li>
                         @endif
-                        
-                        @can('sliders.index')
-                        <li class="{{ setActive('admin/slider') }}"><a class="nav-link"
-                                href="{{ route('admin.slider.index') }}"><i class="fas fa-laptop"></i>
-                                <span>Sliders</span></a></li>
-                        @endcan
-
                         <li
                             class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
                             @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users
                                 Management</span></a>
                             @endif
-                            
+
                             <ul class="dropdown-menu">
                                 @can('roles.index')
                                     <li class="{{ setActive('admin/role') }}"><a class="nav-link"
@@ -155,7 +135,7 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> SMK INDONESIA <div class="bullet"></div> All Rights
+                    Copyright &copy; 2018 <div class="bullet"></div> SEWA KENDARAAN <div class="bullet"></div> All Rights
                     Reserved.
                 </div>
                 <div class="footer-right">
@@ -214,4 +194,5 @@
         @endif
     </script>
 </body>
+</html>
 </html>
